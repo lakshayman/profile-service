@@ -183,15 +183,15 @@ jobs:
           role-duration-seconds: 3600
           role-skip-session-tagging: true
 
-      - name: Deploy to testing account
-        run: |
-          sam deploy --stack-name ${TESTING_STACK_NAME} \
-            --template packaged-testing.yaml \
-            --capabilities CAPABILITY_IAM \
-            --region ${TESTING_REGION} \
-            --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
-            --no-fail-on-empty-changeset \
-            --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
+      # - name: Deploy to testing account
+      #   run: |
+      #     sam deploy --stack-name ${TESTING_STACK_NAME} \
+      #       --template packaged-testing.yaml \
+      #       --capabilities CAPABILITY_IAM \
+      #       --region ${TESTING_REGION} \
+      #       --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
+      #       --no-fail-on-empty-changeset \
+      #       --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
 
   integration-test:
     if: github.ref == 'refs/heads/master'
