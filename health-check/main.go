@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	f "member-urls"
 	"net/http"
-	f "profile-service/member-urls"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
