@@ -1,7 +1,6 @@
 package main
 
 import (
-	f "../member-urls"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -9,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	f "profile-service/member-urls"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
