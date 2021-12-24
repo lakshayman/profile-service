@@ -43,7 +43,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	// 	return events.APIGatewayProxyResponse{}, ErrNoIP
 	// }
 	postBody, _ := json.Marshal(map[string]string{
-		"emailid": "lakshaymanchanda73@gmail.com",
+		"emailid": "lakshay73lakshay@gmail.com",
 	})
 
 	respBody := bytes.NewBuffer(postBody)
