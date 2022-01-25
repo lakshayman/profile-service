@@ -1,68 +1,39 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io/ioutil"
+	"context"
 	"log"
-	f "member-urls"
-	"net/http"
+	"os"
+
+	firebase "firebase.google.com/go"
+	"google.golang.org/api/option"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-var (
-	// DefaultHTTPGetAddress Default Address
-	DefaultHTTPGetAddress = "https://checkip.amazonaws.com"
-
-	// ErrNoIP No IP found in response
-	ErrNoIP = errors.New("No IP in HTTP response")
-
-	// ErrNon200Response non 200 status code in response
-	ErrNon200Response = errors.New("Non 200 Response found")
-)
-
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	// resp, err := http.Get(DefaultHTTPGetAddress)
-	// if err != nil {
-	// 	return events.APIGatewayProxyResponse{}, err
-	// }
 
-	// if resp.StatusCode != 200 {
-	// 	return events.APIGatewayProxyResponse{}, ErrNon200Response
-	// }
+	ctx := context.Background()
+	sa := option.WithCredentialsJSON([]byte(os.Getenv("firestoreCred")))
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	// ip, err := ioutil.ReadAll(resp.Body)
-	// if err != nil {
-	// 	return events.APIGatewayProxyResponse{}, err
-	// }
-
-	// if len(ip) == 0 {
-	// 	return events.APIGatewayProxyResponse{}, ErrNoIP
-	// }
-	postBody, _ := json.Marshal(map[string]string{
-		"emailid": "lakshay73lakshay@gmail.com",
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	client.Collection("users").Add(ctx, map[string]interface{}{
+		"first": "Ada",
+		"last":  "Lovelace",
+		"born":  1815,
 	})
-
-	respBody := bytes.NewBuffer(postBody)
-
-	resp, err := http.Post(f.lakshay, "application/json", respBody)
-	if err != nil {
-		log.Fatalf("An Error Ocurred: %v", err)
-	}
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalf("An Error Ocurred: %v", err)
-	}
-	sb := string(body)
+	defer client.Close()
 
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf(sb),
+		Body:       "Connected",
 		StatusCode: 200,
 	}, nil
 }

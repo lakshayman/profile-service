@@ -8,12 +8,15 @@ Description: 'profile-service
 Globals:
   Function:
     Timeout: 5
+    Environment:
+      Variables:
+        firestoreCred: null
 Resources:
-  HelloWorldFunction:
+  HeathCheckFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: hello-world
+      CodeUri: HeathCheckFunction
+      Handler: health-check
       Runtime: go1.x
       Architectures:
       - x86_64
@@ -22,8 +25,8 @@ Resources:
         CatchAll:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /health
             Method: GET
       Environment:
         Variables:
-          PARAM1: VALUE
+          PARAM1: abc
