@@ -10,7 +10,7 @@ Globals:
     Timeout: 5
     Environment:
       Variables:
-        firestoreCred: null
+        abc: abc
 Resources:
   HeathCheckFunction:
     Type: AWS::Serverless::Function
