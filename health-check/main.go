@@ -76,6 +76,7 @@ func getSecret() string {
 	var secretString, decodedBinarySecret string
 	if result.SecretString != nil {
 		secretString = *result.SecretString
+		fmt.Println("here :" + secretName + " " + secretString)
 		return secretString
 	} else {
 		decodedBinarySecretBytes := make([]byte, base64.StdEncoding.DecodedLen(len(result.SecretBinary)))
