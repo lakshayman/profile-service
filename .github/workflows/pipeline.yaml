@@ -10,8 +10,8 @@ on:
       - 'feature**'
 
 env:
-  PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_`${{ github.ref }}` }}
-  PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_`${{ github.ref }}` }}
+  PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets[format('AWS_ACCESS_KEY_ID_{0}', github.ref)] }}
+  PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets[format('AWS_SECRET_ACCESS_KEY_{0}', github.ref)] }}
   SAM_TEMPLATE: template.yaml
   TESTING_STACK_NAME: profile-service-dev
   TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::323749282984:role/aws-sam-cli-managed-dev-pipe-PipelineExecutionRole-173NVIIQDJK1B
