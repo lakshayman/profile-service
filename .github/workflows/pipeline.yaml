@@ -42,8 +42,8 @@ jobs:
         id: prepare-step
         # Sets this step's outputs, that later on will be exported as the job's outputs
         run: |
-          echo "::set-output name=aws_access_key_id_name::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}";
-          echo "::set-output name=aws_secret_access_key_name::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}";
+          echo "::set-output name=aws_access_key_id_name::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG^^}";
+          echo "::set-output name=aws_secret_access_key_name::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG^^}";
     # Sets this job's, that will be consumed by other jobs
     # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
